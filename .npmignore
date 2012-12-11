@@ -1,2 +1,11 @@
 /node_modules/
-atalssian-ide-plugin.xml
+atlassian-ide-plugin.xml
+/examples/
+/.git/
+.DS_Store
+/.gitignore
+/.npm-debug.log.swp
+/LICENCE-MIT
+/grunt.js
+/npm-debug.log
+/tasks/

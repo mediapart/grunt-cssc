@@ -1,5 +1,6 @@
 examples
 .idea
 .DS_Store
-atalssian-ide-plugin.xml
+atlassian-ide-plugin.xml
 node_modules
+/index.js

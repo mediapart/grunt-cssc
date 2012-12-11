@@ -1,26 +1,26 @@
 {
   "name": "grunt-cssc",
-  "description": "The best sample grunt tasks ever.",
-  "version": "0.1.0",
-  "homepage": "https://github.com/etiennesamson/grunt-cssc",
+  "description": "css-condense grunt plugin",
+  "version": "0.2.1",
+  "homepage": "https://github.com/mediapart/grunt-cssc",
   "author": {
     "name": "Étienne Samson",
-    "email": "etienne.samson@mediapart.fr"
+    "email": "etienne.samson@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/etiennesamson/grunt-cssc.git"
+    "url": "git://github.com/mediapart/grunt-cssc.git"
   },
   "bugs": {
-    "url": "https://github.com/etiennesamson/grunt-cssc/issues"
+    "url": "https://github.com/mediapart/grunt-cssc/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/etiennesamson/grunt-cssc/blob/master/LICENSE-MIT"
+      "url": "https://github.com/mediapart/grunt-cssc/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "grunt.js",
+  "main": "index.js",
   "bin": "bin/grunt-cssc",
   "engines": {
     "node": "*"
@@ -28,11 +28,9 @@
   "scripts": {
     "test": "grunt test"
   },
-  "devDependencies": {
+  "dependencies": {
     "grunt": "~0.3.17",
     "css-condense": "~0.0.6"
   },
-  "keywords": [
-    "gruntplugin"
-  ]
+  "keywords": ["gruntplugin", "css", "css-condense", "cssc", "mediaqueries"]
 }
