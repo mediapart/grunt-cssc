@@ -1,0 +1,5 @@
+examples
+.idea
+.DS_Store
+atalssian-ide-plugin.xml
+node_modules
