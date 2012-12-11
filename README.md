@@ -1,4 +1,4 @@
-# grunt-cssc [![Build Status](https://secure.travis-ci.org/mediapart/grunt-cssc.png)](http://travis-ci.org/mediapart/grunt-cssc)
+# grunt-cssc [![Build Status](https://travis-ci.org/mediapart/grunt-cssc.png)](https://travis-ci.org/mediapart/grunt-cssc)
 
 grunt-cssc is a [grunt](https://github.com/gruntjs/grunt) plugin which allows the use of [css-condense](https://github.com/rstacruz/css-condense) module within grunt.
 grunt-cssc also use native grunt [concat instruction](https://github.com/gruntjs/grunt/blob/master/docs/task_concat.md)
