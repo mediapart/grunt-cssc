@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mediapart/grunt-cssc.git"
+    "url": "https://github.com/mediapart/grunt-cssc.git"
   },
   "bugs": {
     "url": "https://github.com/mediapart/grunt-cssc/issues"
@@ -20,7 +20,7 @@
       "url": "https://github.com/mediapart/grunt-cssc/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "index.js",
+  "main": "tasks/cssc.js",
   "bin": "bin/grunt-cssc",
   "engines": {
     "node": "*"
