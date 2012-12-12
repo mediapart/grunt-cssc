@@ -1,7 +1,7 @@
 {
   "name": "grunt-cssc",
   "description": "css-condense grunt plugin",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "homepage": "https://github.com/mediapart/grunt-cssc",
   "author": {
     "name": "Étienne Samson",
@@ -20,17 +20,18 @@
       "url": "https://github.com/mediapart/grunt-cssc/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "tasks/cssc.js",
+  "main": "grunt.js",
   "bin": "bin/grunt-cssc",
   "engines": {
     "node": "*"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "nodeunit test/*"
   },
   "dependencies": {
     "grunt": "~0.3.17",
-    "css-condense": "~0.0.6"
+    "css-condense": "~0.0.6",
+    "nodeunit": "~0.7.4"
   },
   "keywords": ["gruntplugin", "css", "css-condense", "cssc", "mediaqueries"]
 }

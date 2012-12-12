@@ -3,4 +3,3 @@ examples
 .DS_Store
 atlassian-ide-plugin.xml
 node_modules
-/index.js
