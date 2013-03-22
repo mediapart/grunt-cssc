@@ -7,67 +7,63 @@
  */
 
 
+// The actual css condense library
+var cssCondense = require('css-condense');
+
 module.exports = function(grunt) {
   "use strict";
-
-  // Please see the grunt documentation for more information regarding task and
-  // helper creation: https://github.com/gruntjs/grunt/blob/master/docs/toc.md
 
   // ==========================================================================
   // TASKS
   // ==========================================================================
 
-  grunt.registerMultiTask('cssc', 'Your task description goes here.', function() {
-    /**
-     * Variables
-     */
-    var cssCondense, csscOpts, files, src;
+  // Task description
+  var description = "Condense your CSS.";
 
-    // css-condense variable requirement
-    cssCondense = require("css-condense");
+  grunt.registerMultiTask('cssc', description, function() {
 
-    // options in cssc options object
-    csscOpts = grunt.config.process("csscOptions") || {};
+    // Get some defaults for our options.  By default we should let cssc
+    // take care of these defaults
+    var options = this.options();
 
-    // get files list
-    files = grunt.file.expandFiles(this.file.src);
+    // Write out the options if grunt is run in verbose mode
+    grunt.verbose.writeflags(options, 'Options');
 
-    // concat files source
-    src = grunt.helper('concat', files);
+    // Start iterating over all the output targets
+    this.files.forEach(function(file){
 
-    // css-condense execution on src
-    src = cssCondense.compress(src, csscOpts);
+      // Get the input file set for this target
+      var input = file.src.filter(function(filepath) {
 
-    /*
-     cssc_options:{
-      sortSelectors: true,
-      lineBreaks: true,
-      sortDeclarations:true,
-      consolidateViaDeclarations:false,
-      consolidateViaSelectors:true,
-      consolidateMediaQueries:true,
-      compress:true,
-      sort:false,
-      safe:false
-    },
-     */
+        // Sanity check: Filter out files that don't exist
+        if(!grunt.file.exists(filepath)) {
+          // File doesn't exist, don't add it to the list of valid input files
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
 
-    // write in file
-    grunt.file.write(this.file.dest, src);
+      }).map(function(filepath){
+        // Turn each file entry into its file contents
+        return grunt.file.read(filepath);
 
-    // Fail task if errors were logged.
-    if (!!this.errorCount) { return false; }
+      // Concatinate all the input files
+      }).join(grunt.util.linefeed);
 
-    // Otherwise, print a success message.
-    grunt.log.writeln('File "' + this.file.dest + '" created.');
+      // Compress the css
+      var output = condense.compress(iput, options);
+
+      // Sanity check: make sure that we got some output
+      if(output.length < 1) {
+        grunt.log.warn(
+          'Destination not written because compiled files were empty.'
+        );
+      } else {
+        // Write the output file
+        grunt.file.write(file.dest, output);
+      }
+
+    });
   });
-
-  // ==========================================================================
-  // HELPERS
-  // ==========================================================================
-
-  grunt.registerHelper('cssc', function() {
-    return 'cssc !!!';
-  });
-
 };
