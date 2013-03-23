@@ -21,7 +21,6 @@
     }
   ],
   "main": "grunt.js",
-  "bin": "bin/grunt-cssc",
   "engines": {
     "node": "0.8.x",
     "node": "0.10.x"
