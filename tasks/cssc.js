@@ -52,7 +52,7 @@ module.exports = function(grunt) {
       }).join(grunt.util.linefeed);
 
       // Compress the css
-      var output = condense.compress(iput, options);
+      var output = cssCondense.compress(input, options);
 
       // Sanity check: make sure that we got some output
       if(output.length < 1) {
