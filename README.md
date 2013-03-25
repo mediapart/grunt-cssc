@@ -1,34 +1,33 @@
 # grunt-cssc
 
-grunt-cssc is a [grunt](https://github.com/gruntjs/grunt) plugin which allows the use of [css-condense](https://github.com/rstacruz/css-condense) module within grunt.
-grunt-cssc also use native grunt [concat instruction](https://github.com/gruntjs/grunt/blob/master/docs/task_concat.md)
+grunt-cssc is a [grunt](https://github.com/gruntjs/grunt) plugin which allows the use of the excelent [css-condense](https://github.com/rstacruz/css-condense) module within grunt.
+grunt-cssc is a [grunt multitask](http://gruntjs.com/configuring-tasks) and an be configured as such.
 
 
 ## Steps of use
 
 1. Install grunt-cssc module via npm in your project directory `npm install grunt-cssc`.
 2. Add `grunt.loadNpmTasks('grunt-cssc');` to your gruntfile.
-3. Setup grunt-cssc task files sources and destination  
+3. Setup grunt-cssc task configuration
 
 ```javascript
 
 // long way
 "cssc": {
-  dist:{
-    src: "examples/css/**/*.css",
-    dest: "examples/main.css"
+  dist: {
+    files: {
+      "examples/main.css": ["examples/css/**/*.css"]
+    }
   }
 }
 // or short way
 "cssc": {
-  dist:{
-    "examples/main.css": "examples/css/**/*.css"
-  }
+  "examples/main.css": "examples/css/**/*.css"
 }
 ```
-See grunt [concat](https://github.com/gruntjs/grunt/blob/master/docs/task_concat.md) for other files system access.
+See the [grunt documentation](http://gruntjs.com/configuring-tasks) for other ways to configure the cssc task options.
 
-4. Setup grunt-cssc options  
+4. Setup grunt-cssc options
 
 ```javascript
 csscOptions:{
@@ -41,7 +40,7 @@ csscOptions:{
 },
 
 ```
-It is based upon [css-condense](https://github.com/rstacruz/css-condense#command-line-usage) and can be set with :
+It is based upon [css-condense](https://github.com/rstacruz/css-condense#command-line-usage) and can be set with the following options:
 
 * sortSelectors (Boolean) : if true, sort css files by selectors
 * lineBreaks (Boolean) : if true, trim line breaks
@@ -53,13 +52,13 @@ It is based upon [css-condense](https://github.com/rstacruz/css-condense#command
 * sort (Boolean) : if false, turn off sorting
 * safe (Boolean) : if true, avoid the use of consolidate
 
-5. Setup watch instruction  
+5. Setup watch instruction
 
 ```javascript
 watch: {
-  "cssc": {
-    files: ['<config:cssc.dist.src>'],
-      tasks: 'cssc'
+  cssc: {
+    files: ['**/*.css'],
+    tasks: ['cssc']
   }
 }
 ```
@@ -70,9 +69,9 @@ watch: {
 
 module.exports = function(grunt) {
   "use strict";
-  
+
   grunt.loadNpmTasks("grunt-cssc");
-  
+
   // Project configuration.
   grunt.initConfig({
     test: {
@@ -83,23 +82,24 @@ module.exports = function(grunt) {
     },
     cssc: {
       dist:{
-        src: "examples/css/**/*.css",
-        dest: "examples/main.css"
+        files: {
+          "examples/main.css": ["examples/css/**/*.css"]
+        },
+        options:{
+          sortSelectors: true,
+          lineBreaks: true,
+          sortDeclarations:true,
+          consolidateViaDeclarations:false,
+          consolidateViaSelectors:true,
+          consolidateMediaQueries:true,
+          compress:true,
+        }
       }
-    },
-    csscOptions:{
-      sortSelectors: true,
-      lineBreaks: true,
-      sortDeclarations:true,
-      consolidateViaDeclarations:false,
-      consolidateViaSelectors:true,
-      consolidateMediaQueries:true,
-      compress:true,
     },
     watch: {
       "cssc": {
-        files: ['<config:cssc.dist.src>'],
-          tasks: 'cssc'
+        files: ['examples/css/**/*.css'],
+        tasks: ['cssc']
       }
     },
     jshint: {
@@ -116,8 +116,7 @@ module.exports = function(grunt) {
         eqnull: true,
         node: true,
         es5: true
-      },
-      globals: {}
+      }
     }
   });
 
@@ -129,8 +128,8 @@ module.exports = function(grunt) {
 ```
 
 ## Dependencies
-* [node.js](http://nodejs.org/) ~0.8.0
-* [grunt](https://github.com/gruntjs/grunt) ~0.3.17
+* [node.js](http://nodejs.org/) ~0.10.0
+* [grunt](https://github.com/gruntjs/grunt) ~0.4.x
 * [css-condense](https://github.com/rstacruz/css-condense) ~0.0.6
 
 ## Release History
@@ -138,5 +137,5 @@ module.exports = function(grunt) {
 * 2012/12/11 - v0.1.0 - Initial release.
 
 ## License
-Copyright (c) 2012 [Étienne Samson](https://github.com/etiennesamson) for "[Mediapart](https://github.com/mediapart)".  
+Copyright (c) 2012 [Étienne Samson](https://github.com/etiennesamson) for "[Mediapart](https://github.com/mediapart)".
 Licensed under the [Open Source Initiative MIT license](http://opensource.org/licenses/MIT).
