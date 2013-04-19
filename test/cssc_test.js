@@ -1,36 +1,33 @@
 var grunt = require('grunt');
+var fs = require('fs');
 
-/*
-  ======== A Handy Little Nodeunit Reference ========
-  https://github.com/caolan/nodeunit
+function readFile(file) {
+  'use strict';
 
-  Test methods:
-    test.expect(numAssertions)
-    test.done()
-  Test assertions:
-    test.ok(value, [message])
-    test.equal(actual, expected, [message])
-    test.notEqual(actual, expected, [message])
-    test.deepEqual(actual, expected, [message])
-    test.notDeepEqual(actual, expected, [message])
-    test.strictEqual(actual, expected, [message])
-    test.notStrictEqual(actual, expected, [message])
-    test.throws(block, [error], [message])
-    test.doesNotThrow(block, [error], [message])
-    test.ifError(value)
-*/
+  var contents = grunt.file.read(file);
 
-exports['cssc'] = {
-  setUp: function(done) {
-    // setup here
-    done();
-  },
-  'helper': function(test) {
-    test.expect(1);
-    // tests here
-    grunt.log.write("ici = "+grunt.helper('cssc'));
-    //test.equal(1, "ici un test", "incroyable ça marche !");
-    test.equal(grunt.helper('cssc'), 'cssc !!!', 'should return the correct value.');
+  if (process.platform === 'win32') {
+    contents = contents.replace(/\r\n/g, '\n');
+  }
+
+  return contents;
+}
+
+exports.coffee = {
+  compile: function(test) {
+    'use strict';
+
+    test.expect(2);
+
+    var actual = readFile('tmp/compressed.css');
+    var expected = readFile('test/expected/compressed.css');
+    test.equal(expected, actual, 'should compress a single css file');
+
+    actual = readFile('tmp/concat.css');
+    expected = readFile('test/expected/concat.css');
+
+    test.equal(expected, actual, 'should compress multiple css files to a single css file');
+
     test.done();
   }
 };

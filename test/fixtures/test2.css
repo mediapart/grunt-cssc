@@ -1,0 +1,25 @@
+/* More css copied from the condense documentation */
+
+div {
+  color: #ff0000;
+}
+
+span {
+  margin: 1px !important;
+}
+
+h1 {
+  background: none;
+}
+
+a {
+  padding: 0.30em;
+}
+
+p {
+  font-family: "Arial Black", sans-serif;
+}
+
+abbr {
+  background: url("tile.jpg");
+}
