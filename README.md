@@ -130,12 +130,13 @@ module.exports = function(grunt) {
 
 ## Dependencies
 * [node.js](http://nodejs.org/) ~0.8.0
-* [grunt](https://github.com/gruntjs/grunt) ~0.3.17
+* [grunt](https://github.com/gruntjs/grunt) ~0.4.0
 * [css-condense](https://github.com/rstacruz/css-condense) ~0.0.6
 
 ## Release History
 
 * 2012/12/11 - v0.1.0 - Initial release.
+* 2013/04/21 - v0.2.0 - Initial release.
 
 ## License
 Copyright (c) 2012 [Étienne Samson](https://github.com/etiennesamson) for "[Mediapart](https://github.com/mediapart)".  
