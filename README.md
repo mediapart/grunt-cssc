@@ -136,7 +136,7 @@ module.exports = function(grunt) {
 ## Release History
 
 * 2012/12/11 - v0.1.0 - Initial release.
-* 2013/04/21 - v0.2.0 - Initial release.
+* 2013/04/21 - v0.2.4 - Initial release.
 
 ## License
 Copyright (c) 2012 [Étienne Samson](https://github.com/etiennesamson) for "[Mediapart](https://github.com/mediapart)".  
