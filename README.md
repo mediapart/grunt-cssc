@@ -90,8 +90,10 @@ grunt.initConfig({
 
 ####
 
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
 ## Release History
-_(Nothing yet)_
+* 2013/04/30 - v0.2.5 - grunt 0.4.1 grunt-cssc plugin version.
+* 2012/12/11 - v0.1.0 - Initial release.
+
+## License
+Copyright (c) 2012 [Étienne Samson](https://github.com/etiennesamson) for "[Mediapart](https://github.com/mediapart)".
+Licensed under the [Open Source Initiative MIT license](http://opensource.org/licenses/MIT).
