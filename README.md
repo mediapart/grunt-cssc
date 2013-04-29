@@ -91,7 +91,7 @@ grunt.initConfig({
 ####
 
 ## Release History
-* 2013/04/30 - v0.2.5 - grunt 0.4.1 grunt-cssc plugin version.
+* 2013/04/30 - v0.2.6 - grunt 0.4.1 grunt-cssc plugin version.
 * 2012/12/11 - v0.1.0 - Initial release.
 
 ## License
