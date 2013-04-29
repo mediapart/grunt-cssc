@@ -1,4 +1,7 @@
-var grunt = require('grunt');
+'use strict';
+
+var grunt = require('grunt'),
+    cssCondense = require('css-condense');
 
 /*
   ======== A Handy Little Nodeunit Reference ========
@@ -20,17 +23,46 @@ var grunt = require('grunt');
     test.ifError(value)
 */
 
-exports['cssc'] = {
+exports.cssc = {
   setUp: function(done) {
-    // setup here
+    // setup here if necessary
+    this.options = {
+      sortSelectors: true,
+      lineBreaks: true,
+      sortDeclarations:true,
+      consolidateViaDeclarations:false,
+      consolidateViaSelectors:true,
+      consolidateMediaQueries:true,
+      compress:true,
+      sort:false,
+      safe:false
+    };
     done();
   },
-  'helper': function(test) {
-    test.expect(1);
-    // tests here
-    grunt.log.write("ici = "+grunt.helper('cssc'));
-    //test.equal(1, "ici un test", "incroyable ça marche !");
-    test.equal(grunt.helper('cssc'), 'cssc !!!', 'should return the correct value.');
+  default: function(test) {
+    test.expect(3);
+    var files = grunt.file.expand("test/base_css/!(_)*.css"),
+      concat = grunt.file.read('test/fixtures/main.css'),
+      expected = grunt.file.read('test/expected/main.css'),
+      src;
+
+    // files are there ? must be > 0
+    test.ok(files.length, "The files must be there to run a proper test");
+
+    src = files.map(function(filepath) {
+      // Read file source.
+      return grunt.file.read(filepath);
+    }).join("");
+
+    // concat test
+    test.equal(concat, src, 'The files should be properly concatenated');
+
+    // css-condense operation
+    src = cssCondense.compress(src, this.options);
+
+    // cssc test
+    test.equal(expected, src, 'File main.css must be properly compiled');
+
     test.done();
   }
 };

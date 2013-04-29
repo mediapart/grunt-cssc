@@ -1,143 +1,97 @@
 # grunt-cssc
 
+> css-condense grunt plugin
+
 grunt-cssc is a [grunt](https://github.com/gruntjs/grunt) plugin which allows the use of [css-condense](https://github.com/rstacruz/css-condense) module within grunt.
-grunt-cssc also use native grunt [concat instruction](https://github.com/gruntjs/grunt/blob/master/docs/task_concat.md)
 
+## Getting Started
+This plugin requires Grunt `~0.4.1`
 
-## Steps of use
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-1. Install grunt-cssc module via npm in your project directory `npm install grunt-cssc`.
-2. Add `grunt.loadNpmTasks('grunt-cssc');` to your gruntfile.
-3. Setup grunt-cssc task files sources and destination  
-
-```javascript
-
-// long way
-"cssc": {
-  dist:{
-    src: "examples/css/**/*.css",
-    dest: "examples/main.css"
-  }
-}
-// or short way
-"cssc": {
-  dist:{
-    "examples/main.css": "examples/css/**/*.css"
-  }
-}
-```
-See grunt [concat](https://github.com/gruntjs/grunt/blob/master/docs/task_concat.md) for other files system access.
-
-4. Setup grunt-cssc options  
-
-```javascript
-csscOptions:{
-  sortSelectors: true,
-  lineBreaks: true,
-  sortDeclarations:true,
-  consolidateViaDeclarations:false,
-  consolidateViaSelectors:false,
-  consolidateMediaQueries:false,
-},
-
-```
-It is based upon [css-condense](https://github.com/rstacruz/css-condense#command-line-usage) and can be set with :
-
-* sortSelectors (Boolean) : if true, sort css files by selectors
-* lineBreaks (Boolean) : if true, trim line breaks
-* sortDeclarations (Boolean) : if true, sort css selectors by declarations
-* consolidateViaDeclarations (Boolean) : if true, merge by declarations
-* consolidateViaSelectors (Boolean) : if true, merge by selectors
-* consolidateMediaQueries (Boolean) : if true, merge by mediaqueries
-* compress (Boolean) : if true, compress the file
-* sort (Boolean) : if false, turn off sorting
-* safe (Boolean) : if true, avoid the use of consolidate
-
-5. Setup watch instruction  
-
-```javascript
-watch: {
-  "cssc": {
-    files: ['<config:cssc.dist.src>'],
-      tasks: 'cssc'
-  }
-}
+Install grunt-cssc module via npm in your project directory
+```shell
+npm install grunt-cssc --save-dev
 ```
 
-## An example Setup
+One the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
-```javascript
+```js
+grunt.loadNpmTasks('grunt-cssc');
+```
 
-module.exports = function(grunt) {
-  "use strict";
-  
-  grunt.loadNpmTasks("grunt-cssc");
-  
-  // Project configuration.
-  grunt.initConfig({
-    test: {
-      files: ['test/**/*.js']
-    },
-    lint: {
-      files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
-    },
-    cssc: {
-      dist:{
-        src: "examples/css/**/*.css",
-        dest: "examples/main.css"
+## The "cssc" task
+
+It is a multi task which means you can process to further executions in the same grunt declaration.
+
+### Overview
+In your project's Gruntfile, add a section named `cssc` to the data object passed into `grunt.initConfig()`.
+
+```js
+grunt.initConfig({
+  cssc: {
+    csscFirstSet: {
+      files: {
+        'examples/main.css': 'examples/css/main.css'
       }
     },
-    csscOptions:{
-      sortSelectors: true,
-      lineBreaks: true,
-      sortDeclarations:true,
-      consolidateViaDeclarations:false,
-      consolidateViaSelectors:true,
-      consolidateMediaQueries:true,
-      compress:true,
-    },
-    watch: {
-      "cssc": {
-        files: ['<config:cssc.dist.src>'],
-          tasks: 'cssc'
+    csscSecondSet: {
+      files: {
+        'examples/test.css': 'examples/css/test.css'
       }
-    },
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        es5: true
-      },
-      globals: {}
     }
-  });
-
-  // Default task.
-  grunt.registerTask('default', 'test lint cssc');
-
-};
-
+  },
+})
 ```
 
-## Dependencies
-* [node.js](http://nodejs.org/) ~0.8.0
-* [grunt](https://github.com/gruntjs/grunt) ~0.4.0
-* [css-condense](https://github.com/rstacruz/css-condense) ~0.0.6
+### Options
+
+For each set of instruction, you can specify an Option object wich will define the type of compression you need for your specific set.
+If no options object is defined in your set of instruction, the default compression options will occur.
+
+Each option is based upon [css-condense](https://github.com/rstacruz/css-condense#command-line-usage), here is the list :
+
+* sortSelectors (Boolean, Default true) : if true, sort css files by selectors
+* lineBreaks (Boolean, Default true) : if true, trim line breaks
+* sortDeclarations (Boolean, Default true) : if true, sort css selectors by declarations
+* consolidateViaDeclarations (Boolean, Default false) : if true, merge by declarations
+* consolidateViaSelectors (Boolean, Default true) : if true, merge by selectors
+* consolidateMediaQueries (Boolean, Default true) : if true, merge by mediaqueries
+* compress (Boolean, Default true) : if true, compress the file
+* sort (Boolean, Default false) : if false, turn off sorting
+* safe (Boolean, Default false) : if true, avoid the use of consolidate
+
+
+#### Custom Options
+In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+
+```js
+grunt.initConfig({
+  cssc: {
+    csscFirstSet: {
+      options:{
+        sortSelectors: true,
+        lineBreaks: true,
+        sortDeclarations:true,
+        consolidateViaDeclarations:false,
+        consolidateViaSelectors:false,
+        consolidateMediaQueries:false,
+      },
+      files: {
+        'examples/main.css': 'examples/css/main.css'
+      }
+    },
+    csscSecondSet: {
+      ...
+    }
+  },
+})
+```
+
+####
+
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-
-* 2012/12/11 - v0.1.0 - Initial release.
-* 2013/04/21 - v0.2.4 - Initial release.
-
-## License
-Copyright (c) 2012 [Étienne Samson](https://github.com/etiennesamson) for "[Mediapart](https://github.com/mediapart)".  
-Licensed under the [Open Source Initiative MIT license](http://opensource.org/licenses/MIT).
+_(Nothing yet)_

@@ -1,45 +1,21 @@
 /*
- * grunt-css-condense
- * https://github.com/etiennesamson/grunt-css-condense
+ * grunt-cssc
+ * https://github.com/mediapart/grunt-cssc
  *
- * Copyright (c) 2012 Étienne Samson
+ * Copyright (c) 2013 Étienne Samson
  * Licensed under the MIT license.
  */
 
+'use strict';
 
 module.exports = function(grunt) {
-  "use strict";
 
-  // Please see the grunt documentation for more information regarding task and
-  // helper creation: https://github.com/gruntjs/grunt/blob/master/docs/toc.md
-
-  // ==========================================================================
-  // TASKS
-  // ==========================================================================
+  // Please see the Grunt documentation for more information regarding task
+  // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('cssc', 'Your task description goes here.', function() {
-    /**
-     * Variables
-     */
-    var cssCondense, csscOpts, files, src;
-
-    // css-condense variable requirement
-    cssCondense = require("css-condense");
-
-    // options in cssc options object
-    csscOpts = grunt.config.process("csscOptions") || {};
-
-    // get files list
-    files = grunt.file.expandFiles(this.file.src);
-
-    // concat files source
-    src = grunt.helper('concat', files);
-
-    // css-condense execution on src
-    src = cssCondense.compress(src, csscOpts);
-
-    /*
-     cssc_options:{
+    // Merge task-specific and/or target-specific options with these defaults.
+    var options = this.options({
       sortSelectors: true,
       lineBreaks: true,
       sortDeclarations:true,
@@ -49,25 +25,39 @@ module.exports = function(grunt) {
       compress:true,
       sort:false,
       safe:false
-    },
-     */
+    }), cssCondense = require("css-condense");
 
-    // write in file
-    grunt.file.write(this.file.dest, src);
+    // Iterate over all specified file groups.
 
-    // Fail task if errors were logged.
-    if (!!this.errorCount) { return false; }
+    //grunt.log.writeln(this.files);
 
-    // Otherwise, print a success message.
-    grunt.log.writeln('File "' + this.file.dest + '" created.');
-  });
+    this.files.forEach(function(f){
 
-  // ==========================================================================
-  // HELPERS
-  // ==========================================================================
+      var src = f.src.filter(function(filepath) {
 
-  grunt.registerHelper('cssc', function() {
-    return 'cssc !!!';
+        // Warn on and remove invalid source files (if nonull was set).
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
+
+      }).map(function(filepath) {
+        // Read file source.
+        return grunt.file.read(filepath);
+      }).join("");
+
+      // css-condense operation
+      src = cssCondense.compress(src, options);
+
+      // Write the destination file.
+      grunt.file.write(f.dest, src);
+
+      // Print a success message.
+      grunt.log.writeln('File "' + f.dest + '" created.');
+
+    });
   });
 
 };
