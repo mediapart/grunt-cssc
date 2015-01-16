@@ -1,7 +1,7 @@
 {
   "name": "grunt-cssc",
   "description": "css-condense grunt plugin",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "homepage": "https://github.com/mediapart/grunt-cssc",
   "author": {
     "name": "Étienne Samson",
@@ -32,15 +32,15 @@
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-nodeunit": "~0.1.2",
     "grunt-contrib-watch": "~0.3.1",
-    "css-condense": "~0.0.6",
+    "css-condense": "~0.1.1",
     "grunt": "~0.4.1"
   },
   "peerDependencies": {
     "grunt": "~0.4.1",
-    "css-condense": "~0.0.6"
+    "css-condense": "~0.1.1"
   },
   "dependencies": {
-    "css-condense": "~0.0.6"
+    "css-condense": "~0.1.1"
   },
   "keywords": [
     "gruntplugin"
