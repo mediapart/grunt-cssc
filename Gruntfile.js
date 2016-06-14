@@ -46,7 +46,7 @@ module.exports = function(grunt) {
          * }
          */
         files: {
-          'examples/main.css': 'examples/css/!(_)*.css'
+          'examples/main.css': 'test/base_css/!(_)*.css'
         }
       },
       notConsolidate: {
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
         },
         files: {
           'examples/ie.css': ['examples/css/_ie.css'],
-          'examples/print.css': ['examples/css/_print.css']
+          'examples/print.css': ['test/base_css/_print.css']
         }
       }
     },
